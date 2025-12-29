@@ -28,15 +28,23 @@ jobs:
       - name: Set image names
         id: set_images
         run: |
-          # 转换为小写以符合 Docker/GHCR 规范
+          # 转换为小写以符合 GHCR 规范
           OWNER_LC=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
           REPO_LC=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
           
-          echo "dockerhub=${OWNER_LC}/${REPO_LC}" >> $GITHUB_OUTPUT
+          # GHCR 镜像（始终可用）
           echo "ghcr=ghcr.io/${OWNER_LC}/${REPO_LC}" >> $GITHUB_OUTPUT
-          
-          echo "Docker Hub: ${OWNER_LC}/${REPO_LC}"
           echo "GHCR: ghcr.io/${OWNER_LC}/${REPO_LC}"
+          
+          # Docker Hub 镜像（仅在配置了 secrets 时）
+          if [ -n "${{ secrets.DOCKER_USERNAME }}" ]; then
+            DOCKERHUB_USER="${{ secrets.DOCKER_USERNAME }}"
+            echo "dockerhub=${DOCKERHUB_USER}/${REPO_LC}" >> $GITHUB_OUTPUT
+            echo "Docker Hub: ${DOCKERHUB_USER}/${REPO_LC}"
+          else
+            echo "dockerhub=" >> $GITHUB_OUTPUT
+            echo "Docker Hub: Not configured (skipping)"
+          fi
       
       - name: Set tag name
         id: set_tag
@@ -56,7 +64,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
         
       - name: Log in to Docker Hub
-        if: secrets.DOCKER_USERNAME != '' && secrets.DOCKER_PASSWORD != ''
+        if: ${{ secrets.DOCKER_USERNAME != '' && secrets.DOCKER_PASSWORD != '' }}
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
