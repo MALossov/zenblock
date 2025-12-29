@@ -16,10 +16,6 @@ on:
         description: 'Tag version (e.g., v1.1.2)'
         required: true
         type: string
-
-env:
-  DOCKER_HUB_IMAGE: malossov/zenblock
-  GHCR_IMAGE: ghcr.io/malossov/zenblock
   
 jobs:
   build-and-push:
@@ -29,6 +25,19 @@ jobs:
       packages: write
     
     steps:
+      - name: Set image names
+        id: set_images
+        run: |
+          # 转换为小写以符合 Docker/GHCR 规范
+          OWNER_LC=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          REPO_LC=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
+          
+          echo "dockerhub=${OWNER_LC}/${REPO_LC}" >> $GITHUB_OUTPUT
+          echo "ghcr=ghcr.io/${OWNER_LC}/${REPO_LC}" >> $GITHUB_OUTPUT
+          
+          echo "Docker Hub: ${OWNER_LC}/${REPO_LC}"
+          echo "GHCR: ghcr.io/${OWNER_LC}/${REPO_LC}"
+      
       - name: Set tag name
         id: set_tag
         run: |
@@ -63,6 +72,8 @@ jobs:
         id: prepare_tags
         run: |
           TAG_VERSION="${{ steps.set_tag.outputs.tag }}"
+          DOCKERHUB_IMAGE="${{ steps.set_images.outputs.dockerhub }}"
+          GHCR_IMAGE="${{ steps.set_images.outputs.ghcr }}"
           
           if [ -n "$TAG_VERSION" ]; then
             # 提取版本号 (去掉 v 前缀)
@@ -71,14 +82,14 @@ jobs:
             MINOR=$(echo $VERSION | cut -d. -f1-2)
             
             # 构建所有 tags
-            TAGS="${{ env.DOCKER_HUB_IMAGE }}:${VERSION}
-            ${{ env.DOCKER_HUB_IMAGE }}:${MINOR}
-            ${{ env.DOCKER_HUB_IMAGE }}:${MAJOR}
-            ${{ env.DOCKER_HUB_IMAGE }}:latest
-            ${{ env.GHCR_IMAGE }}:${VERSION}
-            ${{ env.GHCR_IMAGE }}:${MINOR}
-            ${{ env.GHCR_IMAGE }}:${MAJOR}
-            ${{ env.GHCR_IMAGE }}:latest"
+            TAGS="${DOCKERHUB_IMAGE}:${VERSION}
+            ${DOCKERHUB_IMAGE}:${MINOR}
+            ${DOCKERHUB_IMAGE}:${MAJOR}
+            ${DOCKERHUB_IMAGE}:latest
+            ${GHCR_IMAGE}:${VERSION}
+            ${GHCR_IMAGE}:${MINOR}
+            ${GHCR_IMAGE}:${MAJOR}
+            ${GHCR_IMAGE}:latest"
             
             echo "tags<<EOF" >> $GITHUB_OUTPUT
             echo "$TAGS" >> $GITHUB_OUTPUT
@@ -93,8 +104,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ${{ env.DOCKER_HUB_IMAGE }}
-            ${{ env.GHCR_IMAGE }}
+            ${{ steps.set_images.outputs.dockerhub }}
+            ${{ steps.set_images.outputs.ghcr }}
           tags: |
             type=ref,event=branch
             type=ref,event=pr
@@ -115,8 +126,8 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.prepare_tags.outputs.tags || steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=${{ env.DOCKER_HUB_IMAGE }}:buildcache
-          cache-to: type=registry,ref=${{ env.DOCKER_HUB_IMAGE }}:buildcache,mode=max
+          cache-from: type=registry,ref=${{ steps.set_images.outputs.dockerhub }}:buildcache
+          cache-to: type=registry,ref=${{ steps.set_images.outputs.dockerhub }}:buildcache,mode=max
           platforms: linux/amd64,linux/arm64
           
       - name: Image digest
