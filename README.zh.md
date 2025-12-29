@@ -8,11 +8,12 @@
 
 ![LOGO](./public/logo.svg)
 
-![Version](https://img.shields.io/badge/version-1.0.1-blue)
+![Version](https://img.shields.io/github/v/release/MALossov/zenblock?label=version)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Offline](https://img.shields.io/badge/offline-100%25-brightgreen)
 ![Docker Pulls](https://img.shields.io/docker/pulls/malossov/zenblock)
 ![Docker Image Size](https://img.shields.io/docker/image-size/malossov/zenblock/latest)
+![GitHub Release](https://img.shields.io/github/v/release/MALossov/zenblock)
 
 **一个让你重获时间掌控权的「强制拦截 + 数据可视化」工具**
 
@@ -61,10 +62,11 @@
 
 **最简单的启动方式！** 无需配置任何环境。
 
-#### 使用 Docker Hub（最简单！）
+#### 使用预构建镜像（最简单！）
 
-直接从 Docker Hub 拉取预构建的镜像：
+从 Docker Hub 或 GitHub Container Registry 拉取：
 
+**方式 1：Docker Hub**
 ```bash
 # 拉取最新镜像
 docker pull malossov/zenblock:latest
@@ -75,6 +77,19 @@ docker run -d \
   -p 3000:3000 \
   -v ./zenblock-data:/app/data \
   malossov/zenblock:latest
+```
+
+**方式 2：GitHub Container Registry**
+```bash
+# 拉取最新镜像
+docker pull ghcr.io/malossov/zenblock:latest
+
+# 运行容器
+docker run -d \
+  --name zenblock \
+  -p 3000:3000 \
+  -v ./zenblock-data:/app/data \
+  ghcr.io/malossov/zenblock:latest
 ```
 
 #### 使用 Docker Compose

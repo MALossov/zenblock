@@ -1,0 +1,85 @@
+name: Sync Version and Create Tag
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'package.json'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to tag (e.g., 1.0.2)'
+        required: false
+        type: string
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Get version from package.json
+        id: get_version
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            VERSION="${{ github.event.inputs.version }}"
+          else
+            VERSION=$(node -p "require('./package.json').version")
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+          echo "Package version: $VERSION"
+          
+      - name: Check if tag exists
+        id: check_tag
+        run: |
+          if git rev-parse "v${{ steps.get_version.outputs.version }}" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "Tag v${{ steps.get_version.outputs.version }} already exists"
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "Tag v${{ steps.get_version.outputs.version }} does not exist"
+          fi
+          
+      - name: Update README badges
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          VERSION="${{ steps.get_version.outputs.version }}"
+          
+          # 更新 README.md 中的版本号
+          sed -i "s/badge\/version-[0-9.]*-blue/badge\/version-$VERSION-blue/" README.md
+          
+          # 更新 README.zh.md 中的版本号
+          sed -i "s/badge\/version-[0-9.]*-blue/badge\/version-$VERSION-blue/" README.zh.md
+          
+          # 检查是否有变化
+          if git diff --quiet; then
+            echo "No changes to commit"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add README.md README.zh.md
+            git commit -m "chore: update version badges to $VERSION"
+            git push
+          fi
+          
+      - name: Create and push tag
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "v${{ steps.get_version.outputs.version }}" -m "Release version ${{ steps.get_version.outputs.version }}"
+          git push origin "v${{ steps.get_version.outputs.version }}"
+          echo "Created and pushed tag v${{ steps.get_version.outputs.version }}"
+          
+      - name: Tag already exists
+        if: steps.check_tag.outputs.exists == 'true'
+        run: |
+          echo "Tag v${{ steps.get_version.outputs.version }} already exists, skipping tag creation"
