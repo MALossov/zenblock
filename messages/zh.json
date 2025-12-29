@@ -6,10 +6,12 @@
     "generate": "生成拦截脚本",
     "generating": "生成中...",
     "scriptTitle": "部署指令",
-    "scriptDesc": "将此脚本复制到 Tampermonkey (油猴) 或 ScriptCat 中",
+    "scriptDesc": "点击\"一键安装\"将自动唤起 Tampermonkey/ScriptCat 安装脚本",
     "copyToClipboard": "复制到剪贴板",
     "viewDashboard": "查看数据仪表盘",
-    "installScript": "一键安装"
+    "installScript": "一键安装",
+    "copied": "已复制",
+    "copyFailed": "复制失败"
   },
   "Intercept": {
     "headline": "深呼吸。",

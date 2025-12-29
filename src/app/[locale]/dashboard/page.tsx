@@ -130,18 +130,22 @@ export default async function DashboardPage({
           {/* Hourly Chart */}
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-stone-200 dark:border-gray-700">
             <h2 className="text-xl font-bold text-stone-800 dark:text-gray-100 mb-6">{t('chartTitle')}</h2>
-            <DailyRelapseChart data={hourlyData} locale={locale} />
+            <div className="w-full" style={{ minHeight: '320px' }}>
+              <DailyRelapseChart data={hourlyData} locale={locale} />
+            </div>
           </div>
 
           {/* Heatmap */}
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-stone-200 dark:border-gray-700">
             <h2 className="text-xl font-bold text-stone-800 dark:text-gray-100 mb-6">{t('heatmapTitle')}</h2>
-            <RelapseHeatmap data={heatmapData} locale={locale} />
+            <div className="w-full" style={{ minHeight: '320px' }}>
+              <RelapseHeatmap data={heatmapData} locale={locale} />
+            </div>
           </div>
         </div>
 
         {/* Zen Quote */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-stone-200 dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-stone-200 dark:border-gray-700 min-h-[160px]">
           <ZenQuote />
         </div>
       </div>

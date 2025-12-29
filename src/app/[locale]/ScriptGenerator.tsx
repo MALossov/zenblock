@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from 'react';
 import { generateScript as generateScriptAction } from '@/actions/generate-script';
-import { Download } from 'lucide-react';
+import { Zap, Check } from 'lucide-react';
 
 interface Translations {
   placeholder: string;
@@ -12,6 +12,8 @@ interface Translations {
   scriptDesc: string;
   copyToClipboard: string;
   installScript: string;
+  copied?: string;
+  copyFailed?: string;
 }
 
 export default function ScriptGenerator({ 
@@ -24,6 +26,7 @@ export default function ScriptGenerator({
   const [domain, setDomain] = useState('');
   const [isPending, startTransition] = useTransition();
   const [generatedScript, setGeneratedScript] = useState<string | null>(null);
+  const [copyStatus, setCopyStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,28 +38,36 @@ export default function ScriptGenerator({
       const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
       generateScriptAction(domain, locale, baseUrl).then((script) => {
         setGeneratedScript(script);
+        setCopyStatus('idle');
       });
     });
   };
 
-  const handleCopy = () => {
+  const handleCopy = async () => {
     if (generatedScript) {
-      navigator.clipboard.writeText(generatedScript);
+      try {
+        await navigator.clipboard.writeText(generatedScript);
+        setCopyStatus('success');
+        setTimeout(() => setCopyStatus('idle'), 2000);
+      } catch (error) {
+        setCopyStatus('error');
+        setTimeout(() => setCopyStatus('idle'), 2000);
+      }
     }
   };
 
   const handleInstall = () => {
-    if (generatedScript) {
-      // Create a data URI for the script
-      const blob = new Blob([generatedScript], { type: 'text/javascript' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `zenblock-${domain.replace(/[^a-z0-9]/gi, '-')}.user.js`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+    if (generatedScript && domain) {
+      // Encode script content to base64 for safe URL transmission
+      const base64Script = btoa(unescape(encodeURIComponent(generatedScript)));
+      const filename = `zenblock-${domain.replace(/[^a-z0-9]/gi, '-')}.user.js`;
+      
+      // Create URL to our API endpoint that serves the script
+      // The .user.js extension in the URL triggers userscript managers
+      const scriptUrl = `/api/script/${filename}?content=${base64Script}`;
+      
+      // Navigate to the script URL - userscript managers will intercept this
+      window.location.href = scriptUrl;
     }
   };
 
@@ -97,15 +108,24 @@ export default function ScriptGenerator({
           <div className="flex gap-2 mt-3">
             <button
               onClick={handleCopy}
-              className="flex-1 px-4 py-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium border border-blue-600 dark:border-blue-400 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+              className={`flex-1 px-4 py-2 text-sm font-medium border rounded-lg transition-colors flex items-center justify-center gap-2 ${
+                copyStatus === 'success' 
+                  ? 'bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 border-green-600 dark:border-green-400'
+                  : copyStatus === 'error'
+                  ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border-red-600 dark:border-red-400'
+                  : 'text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 border-blue-600 dark:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20'
+              }`}
             >
-              {translations.copyToClipboard}
+              {copyStatus === 'success' && <Check className="w-4 h-4" />}
+              {copyStatus === 'success' ? (translations.copied || '已复制') : 
+               copyStatus === 'error' ? (translations.copyFailed || '复制失败') :
+               translations.copyToClipboard}
             </button>
             <button
               onClick={handleInstall}
               className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium flex items-center justify-center gap-2"
             >
-              <Download className="w-4 h-4" />
+              <Zap className="w-4 h-4" />
               {translations.installScript}
             </button>
           </div>

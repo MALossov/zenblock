@@ -1,6 +1,6 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, Prisma } from '@prisma/client'
 
-const prismaOptions = {
+const prismaOptions: Prisma.PrismaClientOptions = {
   log: ['query', 'info', 'warn', 'error'],
 }
 

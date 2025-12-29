@@ -6,10 +6,12 @@
     "generate": "Generate Interception Script",
     "generating": "Generating...",
     "scriptTitle": "Deployment Protocol",
-    "scriptDesc": "Copy this script to Tampermonkey or ScriptCat",
+    "scriptDesc": "Click 'Install Script' to automatically open with Tampermonkey/ScriptCat",
     "copyToClipboard": "Copy to clipboard",
     "viewDashboard": "View Dashboard",
-    "installScript": "Install Script"
+    "installScript": "Install Script",
+    "copied": "Copied",
+    "copyFailed": "Copy failed"
   },
   "Intercept": {
     "headline": "Breathe.",

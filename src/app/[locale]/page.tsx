@@ -19,7 +19,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     scriptDesc: t('scriptDesc'),
     copyToClipboard: t('copyToClipboard'),
     viewDashboard: t('viewDashboard'),
-    installScript: t('installScript')
+    installScript: t('installScript'),
+    copied: t('copied'),
+    copyFailed: t('copyFailed')
   };
 
   return (
