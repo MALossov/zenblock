@@ -1,0 +1,5 @@
+This is a placeholder for a 512x512 PNG icon.
+To generate the actual PNG from favicon.svg, you can:
+1. Open favicon.svg in a browser
+2. Use an online converter like CloudConvert or RealFaviconGenerator
+3. Or use ImageMagick: convert -background none -resize 512x512 favicon.svg icon-512.png

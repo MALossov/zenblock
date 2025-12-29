@@ -1,5 +1,9 @@
 # ZenBlock 🛡️ Digital Self-Discipline Savior
 
+<div align="center">
+  <img src="./public/logo.svg" alt="ZenBlock Logo" width="300"/>
+</div>
+
 > **Choose Your Language / 选择语言:**  
 > [🇬🇧 English](./README.en.md) | [🇨🇳 简体中文](./README.zh.md)
 

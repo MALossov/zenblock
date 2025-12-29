@@ -4,5 +4,6 @@ import { routing } from '@/lib/routing';
 export default createMiddleware(routing);
  
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)']
+  // Match all pathnames except API, Next.js internals, and static files
+  matcher: ['/((?!api|_next|_vercel|favicon.svg|logo.svg|.*\\..*).*)']
 };

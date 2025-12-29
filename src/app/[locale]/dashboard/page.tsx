@@ -4,6 +4,7 @@ import { DailyRelapseChart } from '@/components/charts/DailyRelapseChart';
 import { RelapseHeatmap } from '@/components/charts/RelapseHeatmap';
 import { prisma } from '@/lib/db';
 import Link from 'next/link';
+import Image from 'next/image';
 import { DashboardClient } from './DashboardClient';
 
 type SearchParams = Promise<{ source?: string }>;
@@ -70,9 +71,12 @@ export default async function DashboardPage({
       <div className="bg-white dark:bg-gray-800 shadow-sm border-b border-stone-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-stone-800 dark:text-gray-100">{t('title')}</h1>
-              <p className="mt-1 text-stone-600 dark:text-gray-300">{t('subtitle')}</p>
+            <div className="flex items-center gap-4">
+              <Image src="/favicon.svg" alt="ZenBlock" width={48} height={48} unoptimized />
+              <div>
+                <h1 className="text-3xl font-bold text-stone-800 dark:text-gray-100">{t('title')}</h1>
+                <p className="mt-1 text-stone-600 dark:text-gray-300">{t('subtitle')}</p>
+              </div>
             </div>
             <Link
               href={`/${locale}`}

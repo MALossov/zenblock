@@ -1,7 +1,8 @@
 import { generateScript } from '@/actions/generate-script';
 import { getTranslations } from 'next-intl/server';
-import ScriptGenerator from './ScriptGenerator';
+import ScriptGeneratorWrapper from './ScriptGeneratorWrapper';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
@@ -32,13 +33,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <LanguageSwitcher />
       </div>
 
-      <div className="max-w-md w-full bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 space-y-6">
+      <ScriptGeneratorWrapper translations={translations} locale={locale}>
         <div className="text-center">
+          {/* App Icon/Logo */}
+          <div className="flex justify-center mb-4">
+            <Image src="/favicon.svg" alt="ZenBlock" width={64} height={64} priority unoptimized />
+          </div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">{t('title')}</h1>
           <p className="mt-2 text-gray-600 dark:text-gray-300">{t('subtitle')}</p>
         </div>
-
-        <ScriptGenerator translations={translations} locale={locale} />
         
         <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
           <Link 
@@ -48,7 +51,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             {translations.viewDashboard}
           </Link>
         </div>
-      </div>
+      </ScriptGeneratorWrapper>
     </div>
   );
 }

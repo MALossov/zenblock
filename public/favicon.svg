@@ -1,12 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <defs>
     <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4f46e5;stop-opacity:1" />
     </linearGradient>
   </defs>
-  <rect width="100" height="100" rx="20" fill="url(#grad)"/>
-  <path d="M50 25 L65 40 L65 70 L50 85 L35 70 L35 40 Z" fill="white" opacity="0.9"/>
-  <path d="M50 35 L58 43 L58 63 L50 71 L42 63 L42 43 Z" fill="url(#grad)"/>
-  <text x="50" y="58" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="white">Z</text>
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="url(#grad)"/>
+  
+  <!-- Zen symbol - stylized 禅 character -->
+  <g fill="white">
+    <!-- Block/shield shape representing protection -->
+    <path d="M30 25 L70 25 L70 45 L60 45 L60 65 L70 65 L70 75 L30 75 L30 65 L40 65 L40 45 L30 45 Z" opacity="0.95"/>
+    
+    <!-- Inner 'Z' for ZenBlock -->
+    <path d="M42 38 L58 38 L42 52 L58 52 L58 56 L42 56 L58 42 L42 42 Z" fill="url(#grad)"/>
+  </g>
+  
+  <!-- Subtle shine effect -->
+  <circle cx="35" cy="35" r="8" fill="white" opacity="0.2"/>
 </svg>

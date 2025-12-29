@@ -18,10 +18,12 @@ interface Translations {
 
 export default function ScriptGenerator({ 
   translations, 
-  locale 
+  locale,
+  onScriptGenerated
 }: { 
   translations: Translations;
   locale: string;
+  onScriptGenerated?: (hasScript: boolean) => void;
 }) {
   const [domain, setDomain] = useState('');
   const [isPending, startTransition] = useTransition();
@@ -37,11 +39,13 @@ export default function ScriptGenerator({
       // Clear any existing generated script before generating new one
       setGeneratedScript(null);
       setCopyStatus('idle');
+      onScriptGenerated?.(false);
       
       // Get current base URL or use localhost as default
       const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
       const script = await generateScriptAction(domain, locale, baseUrl);
       setGeneratedScript(script);
+      onScriptGenerated?.(true);
     });
   };
 
@@ -71,7 +75,7 @@ export default function ScriptGenerator({
   };
 
   return (
-    <div className="space-y-4">
+    <div className={`space-y-4 transition-all duration-300 ${generatedScript ? 'w-full' : ''}`}>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="domain" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -100,7 +104,7 @@ export default function ScriptGenerator({
       {generatedScript && (
         <div className="mt-6">
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">{translations.scriptTitle}</h3>
-          <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg overflow-x-auto text-sm font-mono max-h-96 text-gray-800 dark:text-gray-200">
+          <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg text-xs font-mono max-h-96 overflow-y-auto text-gray-800 dark:text-gray-200 whitespace-pre-wrap break-words">
             {generatedScript}
           </pre>
           <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">{translations.scriptDesc}</p>

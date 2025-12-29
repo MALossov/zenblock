@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <defs>
+    <linearGradient id="appleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4f46e5;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Rounded square background for iOS -->
+  <rect width="180" height="180" rx="40" fill="url(#appleGrad)"/>
+  
+  <!-- Zen symbol in circle -->
+  <g fill="white">
+    <path d="M50 50 L130 50 L130 77 L115 77 L115 104 L130 104 L130 130 L50 130 L50 104 L65 104 L65 77 L50 77 Z" opacity="0.95"/>
+    <path d="M72 68 L108 68 L72 86 L108 86 L108 92 L72 92 L108 74 L72 74 Z" fill="url(#appleGrad)"/>
+  </g>
+  <circle cx="63" cy="63" r="11" fill="white" opacity="0.2"/>
+</svg>
