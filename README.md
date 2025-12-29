@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ZenBlock 🛡️ Digital Self-Discipline Savior
 
-## Getting Started
+> **Choose Your Language / 选择语言:**  
+> [🇬🇧 English](./README.en.md) | [🇨🇳 简体中文](./README.zh.md)
 
-First, run the development server:
+---
+
+<div align="center">
+
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Offline](https://img.shields.io/badge/offline-100%25-brightgreen)
+
+**Reclaim control of your time through forced intervention and visual reflection.**
+
+</div>
+
+---
+
+## 🚀 Quick Start
+
+### Install Dependencies
 
 ```bash
-npm run dev
+npm install
 # or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Launch
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Windows**:
+```cmd
+start.bat
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Mac/Linux**:
+```bash
+chmod +x start.sh
+./start.sh
+```
 
-## Learn More
+### Access
 
-To learn more about Next.js, take a look at the following resources:
+- Chinese: http://localhost:3000/zh
+- English: http://localhost:3000/en
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📚 Documentation
 
-## Deploy on Vercel
+For detailed documentation, please choose your language:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [🇬🇧 English Documentation](./README.en.md)
+- [🇨🇳 中文文档](./README.zh.md)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📦 Tech Stack
+
+- Next.js 15 (App Router)
+- TypeScript
+- SQLite + Prisma
+- Tailwind CSS
+- next-intl
+- Recharts
+
+---
+
+## 📄 License
+
+MIT License
+
+---
+
+<div align="center">
+
+**Time is your only real wealth. Start reclaiming it now!** 💪
+
+[View Full Documentation](./README.en.md) | [查看完整文档](./README.zh.md)
+
+</div>
+

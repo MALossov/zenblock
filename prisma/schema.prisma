@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model RelapseLog {
+  id        Int      @id @default(autoincrement())
+  source    String   // 来源 (例如 bilibili.com)
+  timestamp DateTime @default(now()) // 破戒时间
+  locale    String   @default("zh")  // 当时的语言环境
+
+  // 索引优化查询速度
+  @@index([timestamp])
+  @@index([source])
+  @@index([source, timestamp])
+}
+
+model BlockRule {
+  id        Int      @id @default(autoincrement())
+  domain    String   @unique // 需拦截的域名
+  createdAt DateTime @default(now())
+}

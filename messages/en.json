@@ -1,0 +1,65 @@
+{
+  "Landing": {
+    "title": "ZenBlock Digital Zen",
+    "subtitle": "Reclaim Control of Your Attention",
+    "placeholder": "Enter the website you want to block (e.g. bilibili.com)",
+    "generate": "Generate Interception Script",
+    "generating": "Generating...",
+    "scriptTitle": "Deployment Protocol",
+    "scriptDesc": "Copy this script to Tampermonkey or ScriptCat",
+    "copyToClipboard": "Copy to clipboard",
+    "viewDashboard": "View Dashboard",
+    "installScript": "Install Script"
+  },
+  "Intercept": {
+    "headline": "Breathe.",
+    "subheadline": "You were seeking dopamine. You found peace instead.",
+    "stats_prefix": "This is your",
+    "stats_suffix": "attempt today.",
+    "quote_source": "—— Marcus Aurelius",
+    "backToConsole": "Back to Console"
+  },
+  "Dashboard": {
+    "title": "Willpower Dashboard",
+    "subtitle": "Data as Mirror, Reflection for Growth",
+    "todayAttempts": "Today's Attempts",
+    "totalAttempts": "Total Attempts",
+    "lastAttempt": "Last Attempt",
+    "chartTitle": "Vulnerability by Hour",
+    "heatmapTitle": "30-Day Relapse Heatmap",
+    "noData": "No data available",
+    "hour": "h",
+    "attempts": "attempts"
+  },
+  "Common": {
+    "brand": "ZenBlock",
+    "tagline": "Digital Sovereignty Reclaim System",
+    "description": "Reclaim control of your time through enforced intervention and visual reflection. A tool for \"refusal\" and \"awareness\".",
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "intercept": "Intercept",
+    "currentLanguage": "English"
+  },
+  "ZenQuotes": [
+    {
+      "text": "Very little is needed to make a happy life; it is all within yourself, in your way of thinking.",
+      "author": "Marcus Aurelius"
+    },
+    {
+      "text": "Waste no more time arguing about what a good man should be. Be one.",
+      "author": "Marcus Aurelius"
+    },
+    {
+      "text": "The happiness of your life depends upon the quality of your thoughts.",
+      "author": "Marcus Aurelius"
+    },
+    {
+      "text": "Dwell on the beauty of life. Watch the stars, and see yourself running with them.",
+      "author": "Marcus Aurelius"
+    },
+    {
+      "text": "Accept the things to which fate binds you, and love the people with whom fate brings you together, but do so with all your heart.",
+      "author": "Marcus Aurelius"
+    }
+  ]
+}

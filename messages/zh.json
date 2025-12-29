@@ -1,0 +1,65 @@
+{
+  "Landing": {
+    "title": "ZenBlock 数字禅",
+    "subtitle": "重夺注意力的控制权",
+    "placeholder": "输入你想戒除的网站 (如 bilibili.com)",
+    "generate": "生成拦截脚本",
+    "generating": "生成中...",
+    "scriptTitle": "部署指令",
+    "scriptDesc": "将此脚本复制到 Tampermonkey (油猴) 或 ScriptCat 中",
+    "copyToClipboard": "复制到剪贴板",
+    "viewDashboard": "查看数据仪表盘",
+    "installScript": "一键安装"
+  },
+  "Intercept": {
+    "headline": "深呼吸。",
+    "subheadline": "你在寻找多巴胺，但你通过了这里，找到了平静。",
+    "stats_prefix": "这是你今天第",
+    "stats_suffix": "次尝试打开这个网站。",
+    "quote_source": "—— 马可·奥勒留",
+    "backToConsole": "返回控制台"
+  },
+  "Dashboard": {
+    "title": "意志力仪表盘",
+    "subtitle": "数据即镜像，反思方能成长",
+    "todayAttempts": "今日尝试",
+    "totalAttempts": "总计尝试",
+    "lastAttempt": "上次尝试",
+    "chartTitle": "意志力薄弱时段分布",
+    "heatmapTitle": "过去30天破戒热力图",
+    "noData": "暂无数据",
+    "hour": "时",
+    "attempts": "次"
+  },
+  "Common": {
+    "brand": "ZenBlock",
+    "tagline": "数字主权收复系统",
+    "description": "通过强制性的介入与可视化的反思，帮助使用者重获对时间的掌控权。这是一个关于“拒绝”与“觉知”的工具。",
+    "home": "首页",
+    "dashboard": "仪表盘",
+    "intercept": "拦截页",
+    "currentLanguage": "中文"
+  },
+  "ZenQuotes": [
+    {
+      "text": "幸福的生活需要的很少；它全在你的内心，在你的思维方式中。",
+      "author": "马可·奥勒留"
+    },
+    {
+      "text": "不要再浪费时间争论一个好人应该是什么样子。做一个好人就是了。",
+      "author": "马可·奥勒留"
+    },
+    {
+      "text": "你生活的幸福取决于你思想的质量。",
+      "author": "马可·奥勒留"
+    },
+    {
+      "text": "冥想生命的美好。看着星星，想象自己与它们一同奔跑。",
+      "author": "马可·奥勒留"
+    },
+    {
+      "text": "接受命运给你的束缚，用全心去爱命运带给你的人。",
+      "author": "马可·奥勒留"
+    }
+  ]
+}
