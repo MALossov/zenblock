@@ -14,6 +14,8 @@
 
 **A "Forced Intervention + Data Visualization" Tool to Reclaim Your Time**
 
+> This is a pure vibe-coding project, never expect any quality assurance or after-sales service, unless you are willing to fix it yourself (which I also actively welcome).
+
 English | [🇨🇳 简体中文](./README.zh.md)
 
 </div>
