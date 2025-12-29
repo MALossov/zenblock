@@ -33,7 +33,16 @@
     "noData": "暂无数据",
     "hour": "时",
     "attempts": "次",
-    "allSites": "全部网站"
+    "allSites": "全部网站",
+    "exportCsv": "导出 CSV",
+    "currentStreak": "当前连续",
+    "longestStreak": "最长连续",
+    "totalRelapses": "总破戒次数",
+    "lastRelapse": "上次破戒",
+    "days": "天",
+    "times": "次",
+    "never": "从未",
+    "achievements": "成就"
   },
   "Common": {
     "brand": "ZenBlock",

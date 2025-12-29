@@ -2,11 +2,14 @@ import { getTranslations } from 'next-intl/server';
 import { ZenQuote } from '@/components/ZenQuote';
 import { DailyRelapseChart } from '@/components/charts/DailyRelapseChart';
 import { RelapseHeatmap } from '@/components/charts/RelapseHeatmap';
+import { AchievementBadge } from '@/components/AchievementBadge';
+import { StatsCards } from '@/components/StatsCards';
 import { prisma } from '@/lib/db';
 import Link from 'next/link';
 import Image from 'next/image';
 import { DashboardClient, LastAttemptTime } from './DashboardClient';
 import { getBrowserLocale } from '@/lib/locale';
+import { Download } from 'lucide-react';
 
 type SearchParams = Promise<{ source?: string }>;
 
@@ -107,6 +110,11 @@ export default async function DashboardPage({
         {/* Source Filter */}
         <DashboardClient locale={locale} sources={sources} initialSource={source} />
 
+        {/* Stats Cards */}
+        {source && source !== 'all' && (
+          <StatsCards source={source} locale={locale} />
+        )}
+
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {/* Today's Attempts */}
@@ -138,6 +146,25 @@ export default async function DashboardPage({
               />
             </div>
           </div>
+        </div>
+
+        {/* Achievement Badge - only show for specific sources */}
+        {source && source !== 'all' && (
+          <div className="mb-8">
+            <AchievementBadge source={source} locale={locale} />
+          </div>
+        )}
+
+        {/* Export Button */}
+        <div className="mb-8 flex justify-end">
+          <a
+            href={`/api/export?source=${source || 'all'}&format=csv`}
+            download
+            className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+          >
+            <Download className="w-4 h-4" />
+            {locale === 'zh' ? '导出 CSV' : locale === 'ja' ? 'CSV エクスポート' : 'Export CSV'}
+          </a>
         </div>
 
         {/* Charts */}

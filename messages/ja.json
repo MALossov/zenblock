@@ -33,7 +33,16 @@
     "noData": "データがありません",
     "hour": "時",
     "attempts": "回",
-    "allSites": "すべてのサイト"
+    "allSites": "すべてのサイト",
+    "exportCsv": "CSV エクスポート",
+    "currentStreak": "現在の連続",
+    "longestStreak": "最長連続",
+    "totalRelapses": "総回数",
+    "lastRelapse": "前回",
+    "days": "日",
+    "times": "回",
+    "never": "なし",
+    "achievements": "実績"
   },
   "Common": {
     "brand": "ZenBlock",

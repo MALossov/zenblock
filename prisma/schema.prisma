@@ -25,3 +25,26 @@ model BlockRule {
   domain    String   @unique // 需拦截的域名
   createdAt DateTime @default(now())
 }
+
+model Achievement {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique // 成就名称 (例如 "first_day", "week_warrior", "month_champion")
+  earnedAt    DateTime @default(now())
+  source      String   // 关联的来源
+  daysClean   Int      // 获得成就时的连续天数
+
+  @@index([source])
+  @@index([earnedAt])
+}
+
+model UserStats {
+  id              Int      @id @default(autoincrement())
+  source          String   @unique // 统计的来源
+  longestStreak   Int      @default(0) // 最长连续天数
+  currentStreak   Int      @default(0) // 当前连续天数
+  lastRelapseDate DateTime? // 最后一次破戒日期
+  totalRelapses   Int      @default(0) // 总破戒次数
+  updatedAt       DateTime @updatedAt
+
+  @@index([source])
+}

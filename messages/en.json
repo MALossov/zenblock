@@ -33,7 +33,16 @@
     "noData": "No data available",
     "hour": "h",
     "attempts": "attempts",
-    "allSites": "All Sites"
+    "allSites": "All Sites",
+    "exportCsv": "Export CSV",
+    "currentStreak": "Current Streak",
+    "longestStreak": "Longest Streak",
+    "totalRelapses": "Total Relapses",
+    "lastRelapse": "Last Relapse",
+    "days": "days",
+    "times": "times",
+    "never": "Never",
+    "achievements": "Achievements"
   },
   "Common": {
     "brand": "ZenBlock",
