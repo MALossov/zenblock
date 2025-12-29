@@ -6,7 +6,9 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![LOGO](./public/logo.svg)
+
+![Version](https://img.shields.io/badge/version-1.0.1-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Offline](https://img.shields.io/badge/offline-100%25-brightgreen)
 
@@ -140,36 +142,6 @@ The script automatically:
 #### Access
 - 🇨🇳 Chinese: http://localhost:3000/zh
 - 🇬🇧 English: http://localhost:3000/en
-
----
-
-### Method 3: System Tray Edition
-
-**Ultimate lazy mode - runs in background!**
-
-#### Installation
-
-```cmd
-# Windows
-zenblock-cli.bat install
-
-# Linux/Mac
-./zenblock-cli.sh install
-```
-
-After installation, ZenBlock will:
-- 🎯 Auto-start on boot
-- 📌 Stay in system tray
-- 🔄 Run silently in background
-
-#### Tray Features
-
-Right-click the tray icon:
-- **Open Console** - Jump to main page
-- **View Dashboard** - Check your stats
-- **Start/Stop Service** - Control the service
-- **Auto-Start** - Toggle startup behavior
-- **Exit** - Close the service
 
 ---
 
@@ -329,4 +301,6 @@ MIT License - Use freely, don't blame me
 
 ---
 
-**P.S.** If you still can't control yourself after using this tool, maybe it's time to consider a digital detox vacation 🏝️
+**P.S.** If you can control yourself after reading this README, congratulations - you're already on the path to self-discipline! 🎉
+
+**P.P.S.** If you still can't control yourself after using this tool, maybe it's time to consider a digital detox vacation 🏝️
