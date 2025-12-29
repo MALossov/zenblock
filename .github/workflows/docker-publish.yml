@@ -19,7 +19,7 @@ on:
 
 env:
   DOCKER_HUB_IMAGE: malossov/zenblock
-  GHCR_IMAGE: ghcr.io/${{ github.repository_owner }}/zenblock
+  GHCR_IMAGE: ghcr.io/malossov/zenblock
   
 jobs:
   build-and-push:
