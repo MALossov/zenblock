@@ -262,7 +262,7 @@ sqlite3 dev.db ".dump" > backup.sql
 
 ---
 
-## � Project Structure
+## 📁 Project Structure
 
 ```
 zenblock/
@@ -285,7 +285,7 @@ zenblock/
 
 ---
 
-## �📦 Tech Stack
+## 📦 Tech Stack
 
 - **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript

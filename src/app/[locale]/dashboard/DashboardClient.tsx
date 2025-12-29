@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { useTranslations } from 'next-intl';
+import { getBrowserLocale } from '@/lib/locale';
 
 interface DashboardClientProps {
   locale: string;
@@ -62,4 +62,27 @@ export function DashboardClient({ locale, sources, initialSource }: DashboardCli
       </div>
     </div>
   );
+}
+
+// Component to display formatted last attempt time
+export function LastAttemptTime({ timestamp, locale, noDataText }: { timestamp?: number | null; locale: string; noDataText: string }) {
+  const [formatted, setFormatted] = useState<string>('');
+
+  useEffect(() => {
+    if (timestamp) {
+      const formattedTime = new Date(timestamp).toLocaleString(getBrowserLocale(locale), {
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      setFormatted(formattedTime);
+    }
+  }, [timestamp, locale]);
+
+  if (!timestamp) {
+    return <>{noDataText}</>;
+  }
+
+  return <>{formatted || '...'}</>;
 }
