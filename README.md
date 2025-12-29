@@ -159,13 +159,13 @@ pnpm install
 
 **Windows**:
 ```cmd
-start.bat
+scripts\start.bat
 ```
 
 **Mac/Linux**:
 ```bash
-chmod +x start.sh
-./start.sh
+chmod +x scripts/start.sh
+./scripts/start.sh
 ```
 
 The script automatically:
@@ -262,7 +262,30 @@ sqlite3 dev.db ".dump" > backup.sql
 
 ---
 
-## 📦 Tech Stack
+## � Project Structure
+
+```
+zenblock/
+├── scripts/              # Operational scripts
+│   ├── start.bat        # Windows start script
+│   ├── start.sh         # Unix/Mac start script
+│   ├── version-bump.bat # Windows version bump script
+│   └── version-bump.sh  # Unix/Mac version bump script
+├── docker/              # Docker configuration files
+├── messages/            # i18n translation files
+├── prisma/              # Database schema and migrations
+├── public/              # Static assets
+└── src/                 # Source code
+    ├── actions/         # Server actions
+    ├── app/             # Next.js app router pages
+    ├── components/      # React components
+    ├── i18n/            # Internationalization
+    └── lib/             # Utility libraries
+```
+
+---
+
+## �📦 Tech Stack
 
 - **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript

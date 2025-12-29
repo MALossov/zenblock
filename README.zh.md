@@ -159,13 +159,13 @@ pnpm install
 
 **Windows 用户**：
 ```cmd
-start.bat
+scripts\start.bat
 ```
 
 **Mac/Linux 用户**：
 ```bash
-chmod +x start.sh
-./start.sh
+chmod +x scripts/start.sh
+./scripts/start.sh
 ```
 
 脚本会自动：
@@ -262,7 +262,30 @@ sqlite3 dev.db ".dump" > backup.sql
 
 ---
 
-## 📦 技术栈
+## � 项目结构
+
+```
+zenblock/
+├── scripts/              # 运维脚本
+│   ├── start.bat        # Windows 启动脚本
+│   ├── start.sh         # Unix/Mac 启动脚本
+│   ├── version-bump.bat # Windows 版本升级脚本
+│   └── version-bump.sh  # Unix/Mac 版本升级脚本
+├── docker/              # Docker 配置文件
+├── messages/            # 国际化翻译文件
+├── prisma/              # 数据库模式和迁移
+├── public/              # 静态资源
+└── src/                 # 源代码
+    ├── actions/         # 服务器操作
+    ├── app/             # Next.js App Router 页面
+    ├── components/      # React 组件
+    ├── i18n/            # 国际化配置
+    └── lib/             # 工具库
+```
+
+---
+
+## �📦 技术栈
 
 - **框架**: Next.js 15 (App Router)
 - **语言**: TypeScript
