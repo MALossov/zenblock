@@ -11,6 +11,8 @@
 ![Version](https://img.shields.io/badge/version-1.0.1-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Offline](https://img.shields.io/badge/offline-100%25-brightgreen)
+![Docker Pulls](https://img.shields.io/docker/pulls/malossov/zenblock)
+![Docker Image Size](https://img.shields.io/docker/image-size/malossov/zenblock/latest)
 
 **一个让你重获时间掌控权的「强制拦截 + 数据可视化」工具**
 
@@ -58,6 +60,22 @@
 ### 方法一：Docker 🐳（推荐）
 
 **最简单的启动方式！** 无需配置任何环境。
+
+#### 使用 Docker Hub（最简单！）
+
+直接从 Docker Hub 拉取预构建的镜像：
+
+```bash
+# 拉取最新镜像
+docker pull malossov/zenblock:latest
+
+# 运行容器
+docker run -d \
+  --name zenblock \
+  -p 3000:3000 \
+  -v ./zenblock-data:/app/data \
+  malossov/zenblock:latest
+```
 
 #### 使用 Docker Compose
 

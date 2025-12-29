@@ -11,6 +11,8 @@
 ![Version](https://img.shields.io/badge/version-1.0.1-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Offline](https://img.shields.io/badge/offline-100%25-brightgreen)
+![Docker Pulls](https://img.shields.io/docker/pulls/malossov/zenblock)
+![Docker Image Size](https://img.shields.io/docker/image-size/malossov/zenblock/latest)
 
 **A "Forced Intervention + Data Visualization" Tool to Reclaim Your Time**
 
@@ -58,6 +60,22 @@ English | [🇨🇳 简体中文](./README.zh.md)
 ### Method 1: Docker 🐳 (Recommended)
 
 **The easiest way to get started!** No environment configuration needed.
+
+#### Using Docker Hub (Easiest!)
+
+Pull and run the pre-built image directly from Docker Hub:
+
+```bash
+# Pull the latest image
+docker pull malossov/zenblock:latest
+
+# Run the container
+docker run -d \
+  --name zenblock \
+  -p 3000:3000 \
+  -v ./zenblock-data:/app/data \
+  malossov/zenblock:latest
+```
 
 #### Using Docker Compose
 
