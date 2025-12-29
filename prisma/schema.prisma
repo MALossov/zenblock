@@ -28,11 +28,12 @@ model BlockRule {
 
 model Achievement {
   id          Int      @id @default(autoincrement())
-  name        String   @unique // 成就名称 (例如 "first_day", "week_warrior", "month_champion")
+  name        String   // 成就名称 (例如 "first_day", "week_warrior", "month_champion")
   earnedAt    DateTime @default(now())
   source      String   // 关联的来源
   daysClean   Int      // 获得成就时的连续天数
 
+  @@unique([source, name])
   @@index([source])
   @@index([earnedAt])
 }
