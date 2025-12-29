@@ -64,3 +64,7 @@ logs/
 tmp/
 temp/
 *.tmp
+
+prisma/dev.db
+*/*.db
+docker/*/*.db
