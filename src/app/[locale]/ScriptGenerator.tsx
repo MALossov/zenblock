@@ -33,13 +33,15 @@ export default function ScriptGenerator({
     
     if (!domain.trim()) return;
     
-    startTransition(() => {
+    startTransition(async () => {
+      // Clear any existing generated script before generating new one
+      setGeneratedScript(null);
+      setCopyStatus('idle');
+      
       // Get current base URL or use localhost as default
       const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
-      generateScriptAction(domain, locale, baseUrl).then((script) => {
-        setGeneratedScript(script);
-        setCopyStatus('idle');
-      });
+      const script = await generateScriptAction(domain, locale, baseUrl);
+      setGeneratedScript(script);
     });
   };
 
@@ -57,16 +59,13 @@ export default function ScriptGenerator({
   };
 
   const handleInstall = () => {
-    if (generatedScript && domain) {
-      // Encode script content to base64 for safe URL transmission
-      const base64Script = btoa(unescape(encodeURIComponent(generatedScript)));
-      const filename = `zenblock-${domain.replace(/[^a-z0-9]/gi, '-')}.user.js`;
+    if (domain) {
+      const cleanDomain = domain.trim().replace(/^https?:\/\//, '').replace(/\/$/, '');
+      const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
       
-      // Create URL to our API endpoint that serves the script
-      // The .user.js extension in the URL triggers userscript managers
-      const scriptUrl = `/api/script/${filename}?content=${base64Script}`;
-      
-      // Navigate to the script URL - userscript managers will intercept this
+      // Navigate directly to API endpoint - no encoding needed
+      // Script Cat will intercept .user.js URLs
+      const scriptUrl = `/api/script/${cleanDomain}.user.js?domain=${encodeURIComponent(cleanDomain)}&locale=${locale}&baseUrl=${encodeURIComponent(baseUrl)}`;
       window.location.href = scriptUrl;
     }
   };

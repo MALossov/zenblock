@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { generateScript } from '@/actions/generate-script';
 
 export async function GET(
   request: NextRequest,
@@ -6,20 +7,25 @@ export async function GET(
 ) {
   const { filename } = await params;
   const { searchParams } = new URL(request.url);
-  const script = searchParams.get('content');
+  
+  // Get parameters from URL
+  const domain = searchParams.get('domain');
+  const locale = searchParams.get('locale') || 'zh';
+  const baseUrl = searchParams.get('baseUrl') || 'http://localhost:3000';
 
-  if (!script) {
-    return new NextResponse('Script content missing', { status: 400 });
+  if (!domain) {
+    return new NextResponse('Domain parameter missing', { status: 400 });
   }
 
-  // Decode the base64 encoded script
-  const decodedScript = Buffer.from(script, 'base64').toString('utf-8');
+  // Generate script directly on server side - no encoding issues
+  const script = await generateScript(domain, locale, baseUrl);
 
   // Return with proper content type for userscripts
-  return new NextResponse(decodedScript, {
+  return new NextResponse(script, {
     headers: {
       'Content-Type': 'text/javascript; charset=utf-8',
       'Content-Disposition': `inline; filename="${filename}"`,
+      'Cache-Control': 'no-cache',
     },
   });
 }
