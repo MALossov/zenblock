@@ -262,7 +262,7 @@ sqlite3 dev.db ".dump" > backup.sql
 
 ---
 
-## � 项目结构
+## 📁 项目结构
 
 ```
 zenblock/
@@ -285,7 +285,7 @@ zenblock/
 
 ---
 
-## �📦 技术栈
+## 📦 技术栈
 
 - **框架**: Next.js 15 (App Router)
 - **语言**: TypeScript
