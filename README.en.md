@@ -146,6 +146,8 @@ Conclusion: You need a hobby
 
 ## 🛠️ Production Deployment
 
+### Method 1: Traditional Deployment
+
 Want to run on a server? No problem!
 
 **Windows**:
@@ -164,6 +166,53 @@ Deployment script automatically:
 2. ✅ Initializes database
 3. ✅ Builds application
 4. ✅ Starts production server
+
+### Method 2: Docker Deployment 🐳
+
+Use Docker for quick deployment without environment configuration!
+
+**Using Docker Compose (Recommended)**:
+```bash
+# Build and start
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop service
+docker-compose down
+```
+
+**Using Docker Commands**:
+```bash
+# Build image
+docker build -t zenblock .
+
+# Run container
+docker run -d \
+  --name zenblock \
+  -p 3000:3000 \
+  -v zenblock-data:/app/prisma \
+  zenblock
+
+# View logs
+docker logs -f zenblock
+
+# Stop container
+docker stop zenblock
+docker rm zenblock
+```
+
+**Access Application**:
+- 🇨🇳 Chinese: http://localhost:3000/zh
+- 🇬🇧 English: http://localhost:3000/en
+
+**Docker Benefits**:
+- ✅ Consistent runtime environment
+- ✅ Easy migration and deployment
+- ✅ Data persistence (using volumes)
+- ✅ Automatic health checks
+- ✅ Ready to use, no manual configuration
 
 ---
 

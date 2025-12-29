@@ -19,7 +19,9 @@
 
 ## 🚀 Quick Start
 
-### Install Dependencies
+### Method 1: Local Development
+
+#### Install Dependencies
 
 ```bash
 npm install
@@ -27,7 +29,7 @@ npm install
 pnpm install
 ```
 
-### Launch
+#### Launch
 
 **Windows**:
 ```cmd
@@ -40,10 +42,25 @@ chmod +x start.sh
 ./start.sh
 ```
 
-### Access
+#### Access
 
 - Chinese: http://localhost:3000/zh
 - English: http://localhost:3000/en
+
+### Method 2: Docker 🐳
+
+Quick deployment with Docker - no environment setup needed!
+
+```bash
+# Using Docker Compose (Recommended)
+docker-compose up -d
+
+# Or using Docker directly
+docker build -t zenblock .
+docker run -d -p 3000:3000 --name zenblock zenblock
+```
+
+**Access**: http://localhost:3000
 
 ---
 
