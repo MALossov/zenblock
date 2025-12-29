@@ -5,6 +5,17 @@ on:
     tags:
       - 'v*.*.*'
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag version (e.g., v1.1.2)'
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      tag:
+        description: 'Tag version (e.g., v1.1.2)'
+        required: true
+        type: string
 
 env:
   DOCKER_HUB_IMAGE: malossov/zenblock
@@ -18,8 +29,19 @@ jobs:
       packages: write
     
     steps:
+      - name: Set tag name
+        id: set_tag
+        run: |
+          if [ -n "${{ inputs.tag }}" ]; then
+            echo "tag=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+          else
+            echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          fi
+          
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.set_tag.outputs.tag }}
         
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
