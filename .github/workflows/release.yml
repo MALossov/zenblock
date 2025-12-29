@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag version to create release for (e.g., v1.1.1)'
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -13,9 +19,19 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Set tag name
+        id: tag
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "tag=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+          else
+            echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          fi
+          
       - name: Checkout code
         uses: actions/checkout@v4
         with:
+          ref: ${{ steps.tag.outputs.tag }}
           fetch-depth: 0
           
       - name: Generate changelog
@@ -23,7 +39,7 @@ jobs:
         run: |
           # 获取上一个 tag
           PREVIOUS_TAG=$(git tag --sort=-creatordate | sed -n '2p')
-          CURRENT_TAG=${GITHUB_REF#refs/tags/}
+          CURRENT_TAG=${{ steps.tag.outputs.tag }}
           
           echo "## 🎉 What's New in $CURRENT_TAG" > CHANGELOG.md
           echo "" >> CHANGELOG.md
