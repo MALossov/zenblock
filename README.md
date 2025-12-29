@@ -1,4 +1,4 @@
-# ZenBlock 🛡️ Digital Self-Discipline Savior
+# ZenBlock 🛡�?Digital Self-Discipline Savior
 
 > **OH! NO!! Scrolling through social media until 3 AM AGAIN?!**  
 > **What happened to "just 5 minutes"?! What happened to "early to bed"?!**  
@@ -27,10 +27,10 @@ English | [🇨🇳 简体中文](./README.zh.md)
 
 ## 😱 Do You Have These Problems?
 
-- 📱 "Just a quick check" → 3 hours later: "OMG it's 3 AM?!"
-- 🎮 "One more round then sleep" → Sunrise: "Did I... pull an all-nighter?"
-- 🛒 "Quick browse" → Cart: "You have 137 items waiting"
-- 📺 "Scroll for a bit" → Boss: "You're fired"
+- 📱 "Just a quick check" �?3 hours later: "OMG it's 3 AM?!"
+- 🎮 "One more round then sleep" �?Sunrise: "Did I... pull an all-nighter?"
+- 🛒 "Quick browse" �?Cart: "You have 137 items waiting"
+- 📺 "Scroll for a bit" �?Boss: "You're fired"
 
 **If you recognize these symptoms, you NEED ZenBlock!**
 
@@ -40,7 +40,7 @@ English | [🇨🇳 简体中文](./README.zh.md)
 
 ### 💪 Powerful Blocking
 - 🚫 One-click generation of Tampermonkey scripts to block your "time black holes"
-- 🔒 Try to open site → Instantly redirected to "Sage Mode" page
+- 🔒 Try to open site �?Instantly redirected to "Sage Mode" page
 - 🧘 Heal your dopamine addiction with Stoic philosophy quotes
 
 ### 📊 Data Visualization
@@ -50,7 +50,7 @@ English | [🇨🇳 简体中文](./README.zh.md)
 
 ### 🌍 Thoughtful Design
 - 🌓 Light/Dark theme: Protect your eyes
-- 🗣️ Bilingual (EN/中文): For global users
+- 🗣�?Bilingual (EN/中文): For global users
 - 💾 100% Offline: Your data stays local, privacy guaranteed
 - 📱 Responsive: Check stats on any device
 
@@ -128,11 +128,11 @@ docker stop zenblock && docker rm zenblock
 #### Docker Configuration Details
 
 The Docker setup includes:
-- ✅ **Automatic database migration** on startup
-- ✅ **Data persistence** - SQLite database stored in `./zenblock-data/` on your host
-- ✅ **Health checks** - Container monitors application health every 30s
-- ✅ **Production optimization** - Uses Next.js standalone output for minimal image size
-- ✅ **Auto-restart** - Container restarts automatically on failure (unless-stopped policy)
+- �?**Automatic database migration** on startup
+- �?**Data persistence** - SQLite database stored in `./zenblock-data/` on your host
+- �?**Health checks** - Container monitors application health every 30s
+- �?**Production optimization** - Uses Next.js standalone output for minimal image size
+- �?**Auto-restart** - Container restarts automatically on failure (unless-stopped policy)
 
 **Data Location**: 
 - Database files are stored in `./zenblock-data/dev.db` on your local machine
@@ -189,7 +189,7 @@ The script automatically:
 3. Click "Generate Interception Script"
 4. Click "Install Script" button
 5. Tampermonkey auto-installs
-6. ✅ Done! Opening YouTube now shows Sage Mode
+6. �?Done! Opening YouTube now shows Sage Mode
 
 **Demo Effect**:
 ```
@@ -330,7 +330,7 @@ MIT License - Use freely, don't blame me
 
 **Start reclaiming your time NOW!** 💪
 
-[⬆ Back to Top](#zenblock--digital-self-discipline-savior)
+[�?Back to Top](#zenblock--digital-self-discipline-savior)
 
 </div>
 
@@ -338,4 +338,4 @@ MIT License - Use freely, don't blame me
 
 **P.S.** If you can control yourself after reading this README, congratulations - you're already on the path to self-discipline! 🎉
 
-**P.P.S.** If you still can't control yourself after using this tool, maybe it's time to consider a digital detox vacation 🏝️
+**P.P.S.** If you still can't control yourself after using this tool, maybe it's time to consider a digital detox vacation 🏝�?
