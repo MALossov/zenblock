@@ -158,46 +158,32 @@ export default async function DashboardPage({
 }
 
 async function getHourlyData(source?: string) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  
   const whereClause = source ? { source } : {};
   
+  // Get all logs (let client-side handle timezone conversion)
   const logs = await prisma.relapseLog.findMany({
-    where: {
-      ...whereClause,
-      timestamp: {
-        gte: today
-      }
-    },
+    where: whereClause,
     select: {
       timestamp: true
+    },
+    orderBy: {
+      timestamp: 'desc'
     }
   });
 
-  // Group by hour
-  const hourlyMap = new Map<number, number>();
-  for (let i = 0; i < 24; i++) {
-    hourlyMap.set(i, 0);
-  }
-
-  logs.forEach(log => {
-    const hour = new Date(log.timestamp).getHours();
-    hourlyMap.set(hour, (hourlyMap.get(hour) || 0) + 1);
-  });
-
-  return Array.from(hourlyMap.entries()).map(([hour, count]) => ({
-    hour,
-    count
+  // Return raw timestamps, client will group by hour in user's timezone
+  return logs.map(log => ({
+    timestamp: log.timestamp.getTime() // Unix timestamp in milliseconds
   }));
 }
 
 async function getHeatmapData(source?: string) {
+  const whereClause = source ? { source } : {};
+
+  // Get logs from last 30 days
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
   thirtyDaysAgo.setHours(0, 0, 0, 0);
-
-  const whereClause = source ? { source } : {};
 
   const logs = await prisma.relapseLog.findMany({
     where: {
@@ -211,26 +197,8 @@ async function getHeatmapData(source?: string) {
     }
   });
 
-  // Group by date
-  const dateMap = new Map<string, number>();
-  
-  logs.forEach(log => {
-    const date = new Date(log.timestamp);
-    const dateStr = date.toISOString().split('T')[0];
-    dateMap.set(dateStr, (dateMap.get(dateStr) || 0) + 1);
-  });
-
-  // Create array for last 30 days
-  const heatmapData = [];
-  for (let i = 29; i >= 0; i--) {
-    const date = new Date();
-    date.setDate(date.getDate() - i);
-    const dateStr = date.toISOString().split('T')[0];
-    heatmapData.push({
-      date: dateStr,
-      count: dateMap.get(dateStr) || 0
-    });
-  }
-
-  return heatmapData;
+  // Return raw timestamps, client will group by date in user's timezone
+  return logs.map(log => ({
+    timestamp: log.timestamp.getTime() // Unix timestamp in milliseconds
+  }));
 }

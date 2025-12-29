@@ -1,8 +1,8 @@
 services:
   zenblock:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: docker/Dockerfile
     container_name: zenblock
     ports:
       - target: 3000
@@ -11,12 +11,12 @@ services:
         mode: host
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=file:./dev.db
+      - DATABASE_URL=file:/app/data/dev.db
       - HOSTNAME=0.0.0.0
       - PORT=3000
     volumes:
       # Persist database
-      - zenblock-data:/app/prisma
+      - ./zenblock-data:/app/data
     restart: unless-stopped
     network_mode: bridge
     healthcheck:
@@ -25,7 +25,3 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-
-volumes:
-  zenblock-data:
-    driver: local

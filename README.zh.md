@@ -1,18 +1,20 @@
 # ZenBlock 🛡️ 数字自律神器
 
-> **OH! NO!! 又双叒叕刷B站刷到凌晨3点？！**  
-> **说好的学习呢？！说好的早睡呢？！**  
+> **OH! NO!! 又双叒叕刷到凌晨3点？！**  
+> **说好的"就看5分钟"呢？！说好的早睡呢？！**  
 > **别慌，让 ZenBlock 来拯救你的自制力！**
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![LOGO](./public/logo.svg)
+
+![Version](https://img.shields.io/badge/version-1.0.1-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Offline](https://img.shields.io/badge/offline-100%25-brightgreen)
 
 **一个让你重获时间掌控权的「强制拦截 + 数据可视化」工具**
 
-[English](./README.en.md) | 简体中文
+[English](./README.md) | 简体中文
 
 </div>
 
@@ -51,7 +53,66 @@
 
 ## 🚀 快速开始
 
-### 第一步：安装依赖
+### 方法一：Docker 🐳（推荐）
+
+**最简单的启动方式！** 无需配置任何环境。
+
+#### 使用 Docker Compose
+
+```bash
+# 启动服务（创建并运行容器）
+docker-compose -f docker/docker-compose.yml up -d
+
+# 查看日志
+docker-compose -f docker/docker-compose.yml logs -f zenblock
+
+# 停止服务
+docker-compose -f docker/docker-compose.yml down
+```
+
+#### 使用 Docker 命令
+
+```bash
+# 构建镜像
+docker build -f docker/Dockerfile -t zenblock .
+
+# 运行容器（带数据持久化）
+docker run -d \
+  --name zenblock \
+  -p 3000:3000 \
+  -v ./zenblock-data:/app/data \
+  zenblock
+
+# 查看日志
+docker logs -f zenblock
+
+# 停止并删除容器
+docker stop zenblock && docker rm zenblock
+```
+
+#### Docker 配置详情
+
+Docker 部署包含以下特性：
+- ✅ **自动数据库迁移** - 容器启动时自动执行
+- ✅ **数据持久化** - SQLite 数据库存储在主机的 `./zenblock-data/` 目录
+- ✅ **健康检查** - 容器每30秒自动检查应用健康状态
+- ✅ **生产优化** - 使用 Next.js standalone 输出，镜像体积最小
+- ✅ **自动重启** - 容器失败时自动重启（unless-stopped 策略）
+
+**数据存储位置**: 
+- 数据库文件存储在本地 `./zenblock-data/dev.db`
+- 可以通过复制此目录进行备份/恢复
+- 即使删除并重建容器，数据也不会丢失
+
+**访问应用**:
+- 🇨🇳 中文版：http://localhost:3000/zh
+- 🇬🇧 英文版：http://localhost:3000/en
+
+---
+
+### 方法二：本地开发
+
+#### 安装依赖
 
 ```bash
 # 克隆仓库
@@ -64,7 +125,7 @@ npm install
 pnpm install
 ```
 
-### 第二步：一键启动
+#### 一键启动
 
 **Windows 用户**（双击即可）：
 ```cmd
@@ -77,9 +138,13 @@ chmod +x start.sh
 ./start.sh
 ```
 
-### 第三步：开始使用
+脚本会自动：
+1. 检查并安装依赖
+2. 同步数据库
+3. 启动开发服务器
+4. 打开浏览器访问 http://localhost:3000
 
-浏览器打开：
+#### 访问
 - 🇨🇳 中文版：http://localhost:3000/zh
 - 🇬🇧 英文版：http://localhost:3000/en
 
@@ -87,7 +152,7 @@ chmod +x start.sh
 
 ## 📖 使用教程
 
-### 🎬 场景一：拦截B站
+### 🎬 拦截网站
 
 1. 打开 ZenBlock 主页
 2. 输入框输入：`bilibili.com`
@@ -101,20 +166,19 @@ chmod +x start.sh
 你：双击B站图标
 B站：正在加载...
 ZenBlock：🛑 深呼吸。这是你今天第7次想看B站了。
-你：😱 我才刷了7次？！（其实是70次）
 马可·奥勒留："浪费时间就是浪费生命。"
 你：💪 好！去学习！
 ```
 
-### 📊 场景二：查看数据
+### 📊 查看数据统计
 
 点击「查看仪表盘」，你会看到：
+- **今日尝试**：今天你试图打开网站的次数
+- **总计尝试**：你一生的耻辱次数
+- **24小时分布图**：什么时候你最容易破戒
+- **30天热力图**：可视化日历显示你的沦陷日
 
-- **今日尝试**：87次 ← 😱 what?!
-- **总计尝试**：1,234次 ← 🤡 我裂开了
-- **上次尝试**：2分钟前 ← 😅 刚被抓现行
-
-**24小时分布图**：
+**24小时分布示例**：
 ```
 23:00-03:00  ████████████████████  <- 你的黄金破戒时段
 03:00-07:00  ██                    <- 终于睡了
@@ -122,166 +186,85 @@ ZenBlock：🛑 深呼吸。这是你今天第7次想看B站了。
 12:00-18:00  ██████████            <- 下午又开始了
 ```
 
-**热力图**：
-```
-一片血红 = 你完蛋了
-一片绿色 = 你重获新生
-```
+### 🎯 管理多个网站
 
-### 🎯 场景三：管理多个网站
-
+追踪并拦截多个时间杀手：
 ```
 你的拦截清单：
 - bilibili.com  （今日87次）
 - douyin.com    （今日23次）
 - taobao.com    （今日56次）
-- zhihu.com     （今日12次）
 
-总计：178次破戒尝试
-结论：你需要找点事做
+总计：166次破戒尝试
 ```
 
 ---
 
-## 🛠️ 生产部署
+##  高级玩法
 
-### 方式一：传统部署
+### 自定义贤者语录
 
-想要在服务器上跑？没问题！
-
-**Windows**：
-```cmd
-deploy.bat
-```
-
-**Linux/Mac**：
-```bash
-chmod +x deploy.sh
-./deploy.sh
-```
-
-部署脚本会自动：
-1. ✅ 安装生产依赖
-2. ✅ 初始化数据库
-3. ✅ 构建应用
-4. ✅ 启动生产服务器
-
-### 方式二：Docker 部署 🐳
-
-使用 Docker 可以快速部署，无需配置环境！
-
-**使用 Docker Compose（推荐）**：
-```bash
-# 构建并启动
-docker-compose up -d
-
-# 查看日志
-docker-compose logs -f
-
-# 停止服务
-docker-compose down
-```
-
-**使用 Docker 命令**：
-```bash
-# 构建镜像
-docker build -t zenblock .
-
-# 运行容器
-docker run -d \
-  --name zenblock \
-  -p 3000:3000 \
-  -v zenblock-data:/app/prisma \
-  zenblock
-
-# 查看日志
-docker logs -f zenblock
-
-# 停止容器
-docker stop zenblock
-docker rm zenblock
-```
-
-**访问应用**：
-- 🇨🇳 中文版：http://localhost:3000/zh
-- 🇬🇧 英文版：http://localhost:3000/en
-
-**Docker 优势**：
-- ✅ 一致的运行环境
-- ✅ 轻松迁移和部署
-- ✅ 数据持久化（使用 volume）
-- ✅ 自动健康检查
-- ✅ 开箱即用，无需手动配置
-
----
-
-## 🤔 常见问题
-
-### Q: 我可以绕过拦截吗？
-**A:** 可以，卸载油猴脚本就行。但是：
-- 你的破戒数据会被记录
-- 你会看到自己有多弱
-- 你的良心会受到谴责
-
-### Q: 数据会上传吗？
-**A:** 不会！所有数据存在本地 SQLite，只有你能看到自己有多菜。
-
-### Q: 拦截后我还能访问网站吗？
-**A:** 能！看完贤者语录，点击「返回控制台」卸载脚本即可。
-
-### Q: 为什么叫 ZenBlock？
-**A:** Zen（禅）+ Block（拦截）= 在拦截中找到内心的平静 🧘
-
-### Q: 这玩意真的有用吗？
-**A:** 看你。工具只是工具，真正的自律在于你自己。  
-（但至少你能看到自己每天浪费多少时间）
-
----
-
-## 💡 高级玩法
-
-### 1. 设置拦截白名单时段
-```javascript
-// 修改油猴脚本，添加时间判断
-const hour = new Date().getHours();
-if (hour >= 9 && hour <= 18) {
-    // 工作时间才拦截
-    window.location.href = blockUrl;
+编辑 `messages/zh.json` 或 `messages/en.json`：
+```json
+{
+  "ZenQuotes": [
+    {
+      "text": "你又来了？！",
+      "author": "你的良心"
+    }
+  ]
 }
 ```
 
-### 2. 自定义贤者语录
-编辑 `messages/zh.json`：
-```json
-"ZenQuotes": [
-  {
-    "text": "你又来了？！",
-    "author": "你的良心"
-  }
-]
-```
+### 导出数据分析
 
-### 3. 导出数据分析
 ```bash
-# 导出数据库
-sqlite3 prisma/dev.db ".dump" > my_shame.sql
+# 访问数据库
+docker exec -it zenblock sh
+cd data
 
-# 用 Python 分析
-python analyze_my_life.py
+# 或者本地运行时
+cd zenblock-data
+
+# 导出数据库
+sqlite3 dev.db ".dump" > backup.sql
 ```
 
 ---
 
 ## 📦 技术栈
 
-- **框架**: Next.js 15 (App Router) - 因为它快
-- **语言**: TypeScript - 因为要类型安全
-- **数据库**: SQLite + Prisma - 因为简单
-- **样式**: Tailwind CSS - 因为懒得写CSS
-- **图表**: Recharts - 因为好看
-- **国际化**: next-intl - 因为要装13
+- **框架**: Next.js 15 (App Router)
+- **语言**: TypeScript
+- **数据库**: SQLite + Prisma
+- **样式**: Tailwind CSS
+- **图表**: Recharts
+- **国际化**: next-intl
+- **部署**: Docker + Docker Compose
 
-**完全离线**，无需联网，数据隐私100%！
+**完全离线** - 无需联网，隐私100%！
+
+---
+
+## 🤔 常见问题
+
+### Q: 我可以绕过拦截吗？
+**A:** 可以，卸载油猴脚本就行。但是你的破戒数据会被记录，你的良心会受到谴责。
+
+### Q: 数据会上传吗？
+**A:** 不会！所有数据存在本地 SQLite，只有你能看到自己有多菜。
+
+### Q: Docker 会保留我的数据吗？
+**A:** 会！数据库文件存储在主机的 `./zenblock-data/` 目录，容器重启或更新都不会丢失数据。
+
+### Q: 如何备份数据？
+**A:** 直接复制 `zenblock-data/` 目录。恢复时复制回去即可。
+
+### Q: 可以在服务器上运行吗？
+**A:** 当然可以！使用 Docker 部署效果最佳。记得开放3000端口并配置防火墙。
+
+### Q: 这玩意真的有用吗？
+**A:** 看你。工具只是工具，真正的自律在于你自己。但至少你能看到自己每天浪费多少时间。
 
 ---
 
@@ -311,52 +294,7 @@ MIT License - 随便用，出事别找我
 
 ---
 
-## 🎨 截图预览
-
-### 主页 - 脚本生成器
-```
-┌─────────────────────────────────┐
-│  ZenBlock 数字禅                │
-│  重夺注意力的控制权              │
-├─────────────────────────────────┤
-│  [bilibili.com            ]     │
-│  [生成拦截脚本]                 │
-├─────────────────────────────────┤
-│  // 生成的脚本                  │
-│  [复制] [一键安装]              │
-└─────────────────────────────────┘
-```
-
-### 拦截页 - 贤者时刻
-```
-┌─────────────────────────────────┐
-│          深呼吸。               │
-│                                 │
-│  你在寻找多巴胺，              │
-│  但你找到了平静。              │
-│                                 │
-│  这是你今天第 42 次尝试        │
-│                                 │
-│  "幸福源于内心，不在外物"      │
-│  —— 马可·奥勒留                │
-└─────────────────────────────────┘
-```
-
-### 仪表盘 - 数据打脸
-```
-┌─────────────────────────────────┐
-│  今日: 87次  总计: 1234次       │
-├─────────────────────────────────┤
-│  📊 24小时分布 [chart]          │
-│  📅 30天热力图 [heatmap]        │
-└─────────────────────────────────┘
-```
-
----
-
 <div align="center">
-
-### 🌟 如果这个项目帮到了你，请给个 Star！
 
 **记住：时间是你唯一真正拥有的财富**
 
@@ -368,6 +306,6 @@ MIT License - 随便用，出事别找我
 
 ---
 
-**P.S.** 如果你看完这个 README 后依然打不开B站，恭喜你，你已经开始自律了！ 🎉
+**P.S.** 如果你看完这个 README 后依然能控制住自己不刷视频，恭喜你，你已经开始自律了！🎉
 
-**P.P.S.** 如果你是从B站点进来的... emmm... 你懂的 😏
+**P.P.S.** 如果你用了这个工具还控制不住... 也许该考虑数字排毒旅行了 🏝️

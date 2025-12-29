@@ -1,15 +1,40 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 
-interface HeatmapData {
-  date: string;
-  count: number;
+interface RawData {
+  timestamp: number; // Unix timestamp in milliseconds
 }
 
-export function RelapseHeatmap({ data, locale }: { data: HeatmapData[]; locale: string }) {
+export function RelapseHeatmap({ data, locale }: { data: RawData[]; locale: string }) {
   const t = useTranslations('Dashboard');
+  
+  // Process data in client timezone
+  const heatmapData = useMemo(() => {
+    // Group by date in user's timezone
+    const dateMap = new Map<string, number>();
+    
+    data.forEach(item => {
+      const date = new Date(item.timestamp);
+      const dateStr = date.toLocaleDateString('en-CA'); // YYYY-MM-DD format
+      dateMap.set(dateStr, (dateMap.get(dateStr) || 0) + 1);
+    });
+
+    // Create array for last 30 days
+    const result = [];
+    for (let i = 29; i >= 0; i--) {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      const dateStr = date.toLocaleDateString('en-CA');
+      result.push({
+        date: dateStr,
+        count: dateMap.get(dateStr) || 0
+      });
+    }
+
+    return result;
+  }, [data]);
   
   // Define the intensity classes based on count
   const getIntensityClass = (count: number) => {
@@ -21,10 +46,13 @@ export function RelapseHeatmap({ data, locale }: { data: HeatmapData[]; locale: 
   };
 
   // Group data by weeks (7 days per week)
-  const weeks: HeatmapData[][] = [];
-  for (let i = 0; i < data.length; i += 7) {
-    weeks.push(data.slice(i, i + 7));
-  }
+  const weeks = useMemo(() => {
+    const result = [];
+    for (let i = 0; i < heatmapData.length; i += 7) {
+      result.push(heatmapData.slice(i, i + 7));
+    }
+    return result;
+  }, [heatmapData]);
 
   return (
     <div className="overflow-x-auto">

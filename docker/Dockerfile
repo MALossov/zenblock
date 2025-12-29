@@ -25,6 +25,9 @@ RUN npm run build
 FROM node:22-alpine AS runner
 WORKDIR /app
 
+# Install OpenSSL for Prisma
+RUN apk add --no-cache openssl libc6-compat
+
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
@@ -39,9 +42,15 @@ COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
+COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
 
-# Create database directory with proper permissions
-RUN mkdir -p /app/prisma && chown -R nextjs:nodejs /app/prisma
+# Copy startup script
+COPY docker-entrypoint.sh /app/docker-entrypoint.sh
+
+# Create database directory and run initial migration during build
+RUN mkdir -p /app/prisma && \
+    chown -R nextjs:nodejs /app && \
+    chmod +x /app/docker-entrypoint.sh
 
 USER nextjs
 
@@ -49,5 +58,6 @@ EXPOSE 3000
 
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
+ENV DATABASE_URL="file:./prisma/dev.db"
 
-CMD ["node", "server.js"]
+CMD ["/app/docker-entrypoint.sh"]
