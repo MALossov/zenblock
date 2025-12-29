@@ -57,14 +57,12 @@ else
   sed -i "s/\"version\": \"$CURRENT_VERSION\"/\"version\": \"$NEW_VERSION\"/" package.json
 fi
 
-# Update README badges
-echo "Updating README badges..."
-sed -i "s/badge\/version-[0-9.]*-blue/badge\/version-$NEW_VERSION-blue/" README.md
-sed -i "s/badge\/version-[0-9.]*-blue/badge\/version-$NEW_VERSION-blue/" README.zh.md
+# Skip README badge updates - GitHub Actions will handle this
+echo "Skipping README badge updates (GitHub Actions will handle this)"
 
 # Git operations
 echo "Committing changes..."
-git add package.json README.md README.zh.md
+git add package.json
 git commit -m "chore: bump version to $NEW_VERSION"
 
 echo -e "${GREEN}Version bumped to ${NEW_VERSION}${NC}"

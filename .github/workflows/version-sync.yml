@@ -48,28 +48,6 @@ jobs:
             echo "Tag v${{ steps.get_version.outputs.version }} does not exist"
           fi
           
-      - name: Update README badges
-        if: steps.check_tag.outputs.exists == 'false'
-        run: |
-          VERSION="${{ steps.get_version.outputs.version }}"
-          
-          # 更新 README.md 中的版本号
-          sed -i "s/badge\/version-[0-9.]*-blue/badge\/version-$VERSION-blue/" README.md
-          
-          # 更新 README.zh.md 中的版本号
-          sed -i "s/badge\/version-[0-9.]*-blue/badge\/version-$VERSION-blue/" README.zh.md
-          
-          # 检查是否有变化
-          if git diff --quiet; then
-            echo "No changes to commit"
-          else
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add README.md README.zh.md
-            git commit -m "chore: update version badges to $VERSION"
-            git push
-          fi
-          
       - name: Create and push tag
         if: steps.check_tag.outputs.exists == 'false'
         run: |

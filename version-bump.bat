@@ -47,16 +47,14 @@ echo New version: %NEW_VERSION%
 
 REM Update package.json
 echo Updating package.json...
-powershell -Command "(Get-Content package.json) -replace '\"version\": \"%CURRENT_VERSION%\"', '\"version\": \"%NEW_VERSION%\"' | Set-Content package.json"
+powershell -Command "$content = Get-Content -Path 'package.json' -Raw -Encoding UTF8; $content = $content -replace '\"version\": \"%CURRENT_VERSION%\"', '\"version\": \"%NEW_VERSION%\"'; [System.IO.File]::WriteAllText((Resolve-Path 'package.json').Path, $content, [System.Text.UTF8Encoding]::new($false))"
 
-REM Update README badges
-echo Updating README badges...
-powershell -Command "(Get-Content README.md) -replace 'badge/version-[0-9.]*-blue', 'badge/version-%NEW_VERSION%-blue' | Set-Content README.md"
-powershell -Command "(Get-Content README.zh.md) -replace 'badge/version-[0-9.]*-blue', 'badge/version-%NEW_VERSION%-blue' | Set-Content README.zh.md"
+REM Update README badges (skip for now - will be updated by GitHub Actions)
+echo Skipping README badge updates (GitHub Actions will handle this)
 
 REM Git operations
 echo Committing changes...
-git add package.json README.md README.zh.md
+git add package.json
 git commit -m "chore: bump version to %NEW_VERSION%"
 
 echo.
