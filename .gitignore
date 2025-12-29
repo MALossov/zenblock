@@ -48,6 +48,10 @@ prisma/*.db-journal
 
 # IDE
 .vscode/
+
+# Personal development notes (not tracked in git)
+TODO.md
+NOTES.md
 .idea/
 *.swp
 *.swo
