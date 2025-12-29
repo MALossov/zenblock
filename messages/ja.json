@@ -1,0 +1,69 @@
+{
+  "Landing": {
+    "title": "ZenBlock デジタル禅",
+    "subtitle": "注意力のコントロールを取り戻す",
+    "placeholder": "ブロックしたいウェブサイトを入力 (例: bilibili.com)",
+    "generate": "インターセプトスクリプトを生成",
+    "generating": "生成中...",
+    "scriptTitle": "デプロイメントプロトコル",
+    "scriptDesc": "「スクリプトをインストール」をクリックすると、Tampermonkey/ScriptCatで自動的に開きます",
+    "copyToClipboard": "クリップボードにコピー",
+    "viewDashboard": "ダッシュボードを表示",
+    "installScript": "スクリプトをインストール",
+    "copied": "コピーしました",
+    "copyFailed": "コピーに失敗しました"
+  },
+  "Intercept": {
+    "headline": "深呼吸。",
+    "subheadline": "あなたはドーパミンを求めていた。代わりに平穏を見つけた。",
+    "stats_prefix": "これは今日の",
+    "stats_suffix": "回目の試みです。",
+    "quote_source": "—— マルクス・アウレリウス",
+    "backToConsole": "コンソールに戻る",
+    "viewDashboard": "ダッシュボードを表示"
+  },
+  "Dashboard": {
+    "title": "意志力ダッシュボード",
+    "subtitle": "データは鏡、反省は成長",
+    "todayAttempts": "今日の試み",
+    "totalAttempts": "合計試み",
+    "lastAttempt": "最後の試み",
+    "chartTitle": "時間帯別の脆弱性",
+    "heatmapTitle": "30日間の再発ヒートマップ",
+    "noData": "データがありません",
+    "hour": "時",
+    "attempts": "回",
+    "allSites": "すべてのサイト"
+  },
+  "Common": {
+    "brand": "ZenBlock",
+    "tagline": "デジタル主権回復システム",
+    "description": "強制的な介入と視覚的な反省を通じて、時間のコントロールを取り戻す。これは「拒否」と「気づき」のためのツールです。",
+    "home": "ホーム",
+    "dashboard": "ダッシュボード",
+    "intercept": "インターセプト",
+    "currentLanguage": "日本語"
+  },
+  "ZenQuotes": [
+    {
+      "text": "幸せな人生には、ほんの少しのことしか必要ありません。それはすべてあなたの内側に、あなたの考え方の中にあります。",
+      "author": "マルクス・アウレリウス"
+    },
+    {
+      "text": "良い人間とはどうあるべきかを議論することに時間を無駄にするな。良い人間になりなさい。",
+      "author": "マルクス・アウレリウス"
+    },
+    {
+      "text": "あなたの人生の幸福は、あなたの思考の質によって決まります。",
+      "author": "マルクス・アウレリウス"
+    },
+    {
+      "text": "人生の美しさについて考えよ。星を見て、自分がそれらと一緒に走っているところを想像せよ。",
+      "author": "マルクス・アウレリウス"
+    },
+    {
+      "text": "運命があなたを縛るものを受け入れ、運命があなたをもたらす人々を心から愛しなさい。",
+      "author": "マルクス・アウレリウス"
+    }
+  ]
+}

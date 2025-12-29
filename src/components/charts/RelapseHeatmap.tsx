@@ -2,6 +2,7 @@
 
 import React, { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
+import { getBrowserLocale } from '@/lib/locale';
 
 interface RawData {
   timestamp: number; // Unix timestamp in milliseconds
@@ -61,7 +62,7 @@ export function RelapseHeatmap({ data, locale }: { data: RawData[]; locale: stri
           <div key={weekIndex} className="flex flex-col gap-1">
             {week.map((day, dayIndex) => {
               const date = new Date(day.date);
-              const dayLabel = date.toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US', { 
+              const dayLabel = date.toLocaleDateString(getBrowserLocale(locale), { 
                 month: 'short', 
                 day: 'numeric' 
               });

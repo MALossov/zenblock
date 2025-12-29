@@ -19,7 +19,8 @@
     "stats_prefix": "这是你今天第",
     "stats_suffix": "次尝试打开这个网站。",
     "quote_source": "—— 马可·奥勒留",
-    "backToConsole": "返回控制台"
+    "backToConsole": "返回控制台",
+    "viewDashboard": "查看仪表盘"
   },
   "Dashboard": {
     "title": "意志力仪表盘",
@@ -28,10 +29,11 @@
     "totalAttempts": "总计尝试",
     "lastAttempt": "上次尝试",
     "chartTitle": "意志力薄弱时段分布",
-    "heatmapTitle": "过去30天破戒热力图",
+    "heatmapTitle": "过去30天破戒12热力图",
     "noData": "暂无数据",
     "hour": "时",
-    "attempts": "次"
+    "attempts": "次",
+    "allSites": "全部网站"
   },
   "Common": {
     "brand": "ZenBlock",

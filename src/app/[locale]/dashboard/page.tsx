@@ -6,6 +6,7 @@ import { prisma } from '@/lib/db';
 import Link from 'next/link';
 import Image from 'next/image';
 import { DashboardClient } from './DashboardClient';
+import { getBrowserLocale } from '@/lib/locale';
 
 type SearchParams = Promise<{ source?: string }>;
 
@@ -118,7 +119,7 @@ export default async function DashboardPage({
             </div>
             <div className="text-2xl font-bold text-stone-800 dark:text-gray-100">
               {lastAttempt 
-                ? new Date(lastAttempt.timestamp).toLocaleString(locale === 'zh' ? 'zh-CN' : 'en-US', {
+                ? new Date(lastAttempt.timestamp).toLocaleString(getBrowserLocale(locale), {
                     month: 'short',
                     day: 'numeric',
                     hour: '2-digit',

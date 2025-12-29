@@ -19,7 +19,8 @@
     "stats_prefix": "This is your",
     "stats_suffix": "attempt today.",
     "quote_source": "—— Marcus Aurelius",
-    "backToConsole": "Back to Console"
+    "backToConsole": "Back to Console",
+    "viewDashboard": "View Dashboard"
   },
   "Dashboard": {
     "title": "Willpower Dashboard",
@@ -31,7 +32,8 @@
     "heatmapTitle": "30-Day Relapse Heatmap",
     "noData": "No data available",
     "hour": "h",
-    "attempts": "attempts"
+    "attempts": "attempts",
+    "allSites": "All Sites"
   },
   "Common": {
     "brand": "ZenBlock",

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { useTranslations } from 'next-intl';
 
 interface DashboardClientProps {
   locale: string;
@@ -12,6 +13,7 @@ interface DashboardClientProps {
 }
 
 export function DashboardClient({ locale, sources, initialSource }: DashboardClientProps) {
+  const t = useTranslations('Dashboard');
   const [selectedSource, setSelectedSource] = useState(initialSource || 'all');
 
   const handleSourceChange = (source: string) => {
@@ -38,7 +40,7 @@ export function DashboardClient({ locale, sources, initialSource }: DashboardCli
               : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
           }`}
         >
-          {locale === 'zh' ? '全部网站' : 'All Sites'}
+          {t('allSites')}
         </button>
         {sources.map((source) => (
           <button

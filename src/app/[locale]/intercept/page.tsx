@@ -51,10 +51,6 @@ export default async function InterceptPage({
           <ZenQuote />
         </div>
 
-        <div className="mt-8 text-center text-gray-500 dark:text-gray-400 text-sm">
-          <p>{t('quote_source')}</p>
-        </div>
-
         <div className="mt-8 flex gap-4">
           <Link
             href={`/${locale}`}
@@ -66,7 +62,7 @@ export default async function InterceptPage({
             href={`/${locale}/dashboard`}
             className="flex-1 px-4 py-2 bg-stone-700 dark:bg-stone-600 text-white rounded-lg hover:bg-stone-600 dark:hover:bg-stone-500 transition-colors text-center"
           >
-            {locale === 'zh' ? '查看仪表盘' : 'View Dashboard'}
+            {t('viewDashboard')}
           </Link>
         </div>
       </div>

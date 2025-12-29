@@ -1,23 +1,32 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { ChevronDown } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
+import { routing } from '@/lib/routing';
+
+// 语言配置：如需添加新语言，在这里和 routing.ts 中同步添加
+const LANGUAGE_NAMES: Record<string, string> = {
+  zh: '中文',
+  en: 'English',
+  ja: '日本語',
+  // ko: '한국어',
+  // fr: 'Français',
+};
 
 export function LanguageSwitcher() {
   const pathname = usePathname();
   const router = useRouter();
   const t = useTranslations('Common');
+  const currentLocale = useLocale();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const currentLocale = pathname.startsWith('/zh') ? 'zh' : 'en';
-
-  const languages = [
-    { code: 'zh', name: '中文' },
-    { code: 'en', name: 'English' }
-  ];
+  const languages = routing.locales.map(code => ({
+    code,
+    name: LANGUAGE_NAMES[code] || code.toUpperCase()
+  }));
 
   const switchLanguage = (locale: string) => {
     if (locale === currentLocale) {

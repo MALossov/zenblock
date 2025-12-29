@@ -45,7 +45,7 @@ COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
 
 # Copy startup script
-COPY docker-entrypoint.sh /app/docker-entrypoint.sh
+COPY docker/docker-entrypoint.sh /app/docker-entrypoint.sh
 
 # Create database directory and run initial migration during build
 RUN mkdir -p /app/prisma && \
