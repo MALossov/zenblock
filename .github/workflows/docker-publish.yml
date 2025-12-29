@@ -58,6 +58,35 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Prepare tags
+        id: prepare_tags
+        run: |
+          TAG_VERSION="${{ steps.set_tag.outputs.tag }}"
+          
+          if [ -n "$TAG_VERSION" ]; then
+            # 提取版本号 (去掉 v 前缀)
+            VERSION=${TAG_VERSION#v}
+            MAJOR=$(echo $VERSION | cut -d. -f1)
+            MINOR=$(echo $VERSION | cut -d. -f1-2)
+            
+            # 构建所有 tags
+            TAGS="${{ env.DOCKER_HUB_IMAGE }}:${VERSION}
+            ${{ env.DOCKER_HUB_IMAGE }}:${MINOR}
+            ${{ env.DOCKER_HUB_IMAGE }}:${MAJOR}
+            ${{ env.DOCKER_HUB_IMAGE }}:latest
+            ${{ env.GHCR_IMAGE }}:${VERSION}
+            ${{ env.GHCR_IMAGE }}:${MINOR}
+            ${{ env.GHCR_IMAGE }}:${MAJOR}
+            ${{ env.GHCR_IMAGE }}:latest"
+            
+            echo "tags<<EOF" >> $GITHUB_OUTPUT
+            echo "$TAGS" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            
+            echo "Generated tags:"
+            echo "$TAGS"
+          fi
           
       - name: Extract metadata
         id: meta
@@ -84,7 +113,7 @@ jobs:
           context: .
           file: ./docker/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.prepare_tags.outputs.tags || steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=registry,ref=${{ env.DOCKER_HUB_IMAGE }}:buildcache
           cache-to: type=registry,ref=${{ env.DOCKER_HUB_IMAGE }}:buildcache,mode=max
