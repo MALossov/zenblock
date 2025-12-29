@@ -95,7 +95,7 @@ jobs:
   
   create-release:
     needs: build-and-push
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/v') || inputs.tag != ''
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -106,12 +106,21 @@ jobs:
         with:
           fetch-depth: 0
           
+      - name: Set tag for release
+        id: release_tag
+        run: |
+          if [ -n "${{ inputs.tag }}" ]; then
+            echo "tag=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+          else
+            echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          fi
+          
       - name: Generate changelog
         id: changelog
         run: |
           # 获取上一个 tag
           PREVIOUS_TAG=$(git tag --sort=-creatordate | sed -n '2p')
-          CURRENT_TAG=${GITHUB_REF#refs/tags/}
+          CURRENT_TAG=${{ steps.release_tag.outputs.tag }}
           
           echo "## 🎉 What's New in $CURRENT_TAG" > CHANGELOG.md
           echo "" >> CHANGELOG.md
@@ -169,6 +178,7 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ steps.release_tag.outputs.tag }}
           body_path: CHANGELOG.md
           draft: false
           prerelease: false
