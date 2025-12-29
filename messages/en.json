@@ -44,6 +44,40 @@
     "never": "Never",
     "achievements": "Achievements"
   },
+  "Achievements": {
+    "first_day": {
+      "title": "First Day",
+      "description": "Stay clean for 1 day"
+    },
+    "three_days": {
+      "title": "Three Days",
+      "description": "Stay disciplined for 3 days"
+    },
+    "week_warrior": {
+      "title": "Week Warrior",
+      "description": "Complete a week of self-control"
+    },
+    "two_weeks": {
+      "title": "Two Weeks",
+      "description": "Two weeks of persistence makes you stronger"
+    },
+    "month_champion": {
+      "title": "Month Champion",
+      "description": "A month of effort to be proud of"
+    },
+    "quarter_master": {
+      "title": "Quarter Master",
+      "description": "Three months of transformation"
+    },
+    "half_year_hero": {
+      "title": "Half Year Hero",
+      "description": "Half a year of dedication forges a hero"
+    },
+    "year_legend": {
+      "title": "Year Legend",
+      "description": "A full year of discipline creates a legend"
+    }
+  },
   "Common": {
     "brand": "ZenBlock",
     "tagline": "Digital Sovereignty Reclaim System",

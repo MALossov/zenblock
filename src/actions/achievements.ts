@@ -1,6 +1,7 @@
 'use server';
 
 import { prisma } from '@/lib/db';
+import { getTranslations } from 'next-intl/server';
 
 export interface AchievementData {
   name: string;
@@ -26,6 +27,8 @@ const ACHIEVEMENTS_CONFIG = [
 
 export async function getAchievements(source: string, locale: string = 'zh'): Promise<AchievementData[]> {
   try {
+    const t = await getTranslations({ locale, namespace: 'Achievements' });
+    
     // 获取当前连续天数
     const stats = await getOrCreateStats(source);
     const currentStreak = stats.currentStreak;
@@ -41,8 +44,8 @@ export async function getAchievements(source: string, locale: string = 'zh'): Pr
       const earned = earnedAchievements.find(a => a.name === config.name);
       return {
         name: config.name,
-        title: getAchievementTitle(config.name, locale),
-        description: getAchievementDescription(config.name, locale, config.daysRequired),
+        title: t(`${config.name}.title`),
+        description: t(`${config.name}.description`),
         icon: config.icon,
         daysRequired: config.daysRequired,
         earned: !!earned,
@@ -191,64 +194,4 @@ export async function calculateCurrentStreak(source: string): Promise<number> {
     console.error('Error calculating streak:', error);
     return 0;
   }
-}
-
-function getAchievementTitle(name: string, locale: string): string {
-  const titles: Record<string, Record<string, string>> = {
-    first_day: { zh: '第一天', en: 'First Day', ja: '初日' },
-    three_days: { zh: '三日之约', en: 'Three Days', ja: '三日間' },
-    week_warrior: { zh: '一周勇士', en: 'Week Warrior', ja: '一週間の戦士' },
-    two_weeks: { zh: '两周冠军', en: 'Two Weeks', ja: '二週間チャンピオン' },
-    month_champion: { zh: '月度冠军', en: 'Month Champion', ja: '月間チャンピオン' },
-    quarter_master: { zh: '季度大师', en: 'Quarter Master', ja: '四半期マスター' },
-    half_year_hero: { zh: '半年英雄', en: 'Half Year Hero', ja: '半年ヒーロー' },
-    year_legend: { zh: '年度传奇', en: 'Year Legend', ja: '年間レジェンド' },
-  };
-  return titles[name]?.[locale] || titles[name]?.['zh'] || name;
-}
-
-function getAchievementDescription(name: string, locale: string, days: number): string {
-  const descriptions: Record<string, Record<string, string>> = {
-    first_day: { 
-      zh: '成功坚持一天不破戒', 
-      en: 'Stay clean for 1 day', 
-      ja: '1日間クリーンを保つ' 
-    },
-    three_days: { 
-      zh: '连续三天保持自律', 
-      en: 'Stay disciplined for 3 days', 
-      ja: '3日間自制を保つ' 
-    },
-    week_warrior: { 
-      zh: '完成一周的自我控制挑战', 
-      en: 'Complete a week of self-control', 
-      ja: '一週間の自制チャレンジを完了' 
-    },
-    two_weeks: { 
-      zh: '两周的坚持让你更强大', 
-      en: 'Two weeks of persistence makes you stronger', 
-      ja: '二週間の継続があなたを強くする' 
-    },
-    month_champion: { 
-      zh: '一个月的努力值得骄傲', 
-      en: 'A month of effort to be proud of', 
-      ja: '一ヶ月の努力を誇りに思う' 
-    },
-    quarter_master: { 
-      zh: '三个月的蜕变之旅', 
-      en: 'Three months of transformation', 
-      ja: '三ヶ月の変容の旅' 
-    },
-    half_year_hero: { 
-      zh: '半年的坚守铸就英雄', 
-      en: 'Half a year of dedication forges a hero', 
-      ja: '半年間の献身がヒーローを作る' 
-    },
-    year_legend: { 
-      zh: '一整年的自律成就传奇', 
-      en: 'A full year of discipline creates a legend', 
-      ja: '一年間の規律が伝説を生む' 
-    },
-  };
-  return descriptions[name]?.[locale] || descriptions[name]?.['zh'] || `${days} days clean`;
 }

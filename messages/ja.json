@@ -44,6 +44,40 @@
     "never": "なし",
     "achievements": "実績"
   },
+  "Achievements": {
+    "first_day": {
+      "title": "初日",
+      "description": "1日間クリーンを保つ"
+    },
+    "three_days": {
+      "title": "三日間",
+      "description": "3日間自制を保つ"
+    },
+    "week_warrior": {
+      "title": "一週間の戦士",
+      "description": "一週間の自制チャレンジを完了"
+    },
+    "two_weeks": {
+      "title": "二週間チャンピオン",
+      "description": "二週間の継続があなたを強くする"
+    },
+    "month_champion": {
+      "title": "月間チャンピオン",
+      "description": "一ヶ月の努力を誇りに思う"
+    },
+    "quarter_master": {
+      "title": "四半期マスター",
+      "description": "三ヶ月の変容の旅"
+    },
+    "half_year_hero": {
+      "title": "半年ヒーロー",
+      "description": "半年間の献身がヒーローを作る"
+    },
+    "year_legend": {
+      "title": "年間レジェンド",
+      "description": "一年間の規律が伝説を生む"
+    }
+  },
   "Common": {
     "brand": "ZenBlock",
     "tagline": "デジタル主権回復システム",

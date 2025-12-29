@@ -44,6 +44,40 @@
     "never": "从未",
     "achievements": "成就"
   },
+  "Achievements": {
+    "first_day": {
+      "title": "第一天",
+      "description": "成功坚持一天不破戒"
+    },
+    "three_days": {
+      "title": "三日之约",
+      "description": "连续三天保持自律"
+    },
+    "week_warrior": {
+      "title": "一周勇士",
+      "description": "完成一周的自我控制挑战"
+    },
+    "two_weeks": {
+      "title": "两周冠军",
+      "description": "两周的坚持让你更强大"
+    },
+    "month_champion": {
+      "title": "月度冠军",
+      "description": "一个月的努力值得骄傲"
+    },
+    "quarter_master": {
+      "title": "季度大师",
+      "description": "三个月的蜕变之旅"
+    },
+    "half_year_hero": {
+      "title": "半年英雄",
+      "description": "半年的坚守铸就英雄"
+    },
+    "year_legend": {
+      "title": "年度传奇",
+      "description": "一整年的自律成就传奇"
+    }
+  },
   "Common": {
     "brand": "ZenBlock",
     "tagline": "数字主权收复系统",
